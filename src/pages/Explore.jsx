@@ -1,10 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SubHeader from "../images/subheader.jpg";
 import ExploreItems from "../components/explore/ExploreItems";
+import Skeleton from "../components/skeleton/Skeleton";
 
 const Explore = () => {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -33,7 +41,30 @@ const Explore = () => {
         <section aria-label="section" data-aos="fade-up" data-aos-delay="100">
           <div className="container">
             <div className="row">
-              <ExploreItems />
+              {loading ? (
+                <>
+                  {[...Array(8)].map((_, index) => (
+                    <div key={index} className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                      <div className="nft__item">
+                        <div className="nft__item_wrap">
+                          <Skeleton type="image" />
+                        </div>
+                        <div className="nft__item_info">
+                          <Skeleton type="title" width="80%" />
+                          <div className="nft__item_price">
+                            <Skeleton type="text" width="100px" />
+                          </div>
+                          <div className="nft__item_action">
+                            <Skeleton type="text" width="120px" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <ExploreItems />
+              )}
             </div>
           </div>
         </section>
