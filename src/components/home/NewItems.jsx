@@ -3,28 +3,13 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import CountdownTimer from "../UI/CountdownTimer";
 
 const NewItems = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const sliderRef = useRef(null);
-
-  const formatTimeRemaining = (expiryDate) => {
-    if (!expiryDate) return null;
-    
-    const now = new Date().getTime();
-    const expiry = new Date(expiryDate).getTime();
-    const difference = expiry - now;
-
-    if (difference <= 0) return "Expired";
-
-    const hours = Math.floor(difference / (1000 * 60 * 60));
-    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-    return `${hours}h ${minutes}m ${seconds}s`;
-  };
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -170,9 +155,7 @@ const NewItems = () => {
                       </Link>
                     </div>
                     {item.expiryDate && (
-                      <div className="de_countdown">
-                        {formatTimeRemaining(item.expiryDate)}
-                      </div>
+                      <CountdownTimer expiryDate={item.expiryDate} />
                     )}
 
                     <div className="nft__item_wrap">

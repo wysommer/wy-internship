@@ -1,20 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Skeleton from "../UI/Skeleton";
-
-const formatCountdown = (expiryDate) => {
-  const now = new Date().getTime();
-  const expiry = new Date(expiryDate).getTime();
-  const difference = expiry - now;
-
-  if (difference <= 0) return "Expired";
-
-  const hours = Math.floor(difference / (1000 * 60 * 60));
-  const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-  return `${hours}h ${minutes}m ${seconds}s`;
-};
+import CountdownTimer from "../UI/CountdownTimer";
 
 const ExploreItems = () => {
   const [items, setItems] = useState([]);
@@ -106,9 +93,7 @@ const ExploreItems = () => {
                 </Link>
               </div>
               {item.expiryDate && (
-                <div className="de_countdown">
-                  {formatCountdown(item.expiryDate)}
-                </div>
+                <CountdownTimer expiryDate={item.expiryDate} />
               )}
 
               <div className="nft__item_wrap">
