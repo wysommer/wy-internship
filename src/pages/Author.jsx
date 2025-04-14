@@ -58,9 +58,10 @@ const Author = () => {
           className="text-light"
           data-bgimage="url(images/author_banner.jpg) top"
           style={{ background: `url(${AuthorBanner}) top` }}
+          data-aos="fade"
         ></section>
 
-        <section aria-label="section">
+        <section aria-label="section" data-aos="fade-up" data-aos-delay="100">
           <div className="container">
             <div className="row">
               <div className="col-md-12">
